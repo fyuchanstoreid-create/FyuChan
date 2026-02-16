@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FYUCHAN STORE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:'Poppins',sans-serif;
+    background:#0b0f1a;
+    color:#fff;
+}
+
+/* NAVBAR */
+header{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:16px 8%;
+    background:rgba(15,21,38,.95);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:100;
+}
+.logo{
+    font-family:'Orbitron',sans-serif;
+    font-size:16px;
+    letter-spacing:2px;
+}
+.logo span{color:#4da6ff}
+.menu-icon{font-size:26px;cursor:pointer}
+.menu{
+    position:absolute;
+    top:65px;
+    right:8%;
+    background:#111833;
+    border-radius:14px;
+    padding:20px 30px;
+    display:none;
+    flex-direction:column;
+    gap:18px;
+    box-shadow:0 0 25px rgba(77,166,255,.35);
+}
+.menu a{color:#fff;text-decoration:none;font-size:15px}
+.menu a:hover{color:#4da6ff}
+
+/* HERO */
+.hero{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:radial-gradient(circle at top,#1a2a6c,#0b0f1a);
+    padding:0 10%;
+}
+.hero h1{
+    font-family:'Orbitron',sans-serif;
+    font-size:44px;
+    letter-spacing:4px;
+}
+.hero p{margin:18px 0 30px;color:#ccc}
+.hero .btn-group{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+.hero button,.btn-wa{
+    padding:14px 34px;
+    border:none;
+    border-radius:30px;
+    font-weight:600;
+    cursor:pointer;
+}
+.hero button{background:#4da6ff}
+.btn-wa{
+    background:#25D366;
+    color:#fff;
+    text-decoration:none;
+}
+
+/* SECTION */
+section{padding:90px 8%}
+h2{text-align:center;font-size:30px;margin-bottom:40px}
+
+/* PRODUK */
+.produk-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:30px;
+}
+.card{
+    background:#111833;
+    padding:30px;
+    border-radius:18px;
+    text-align:center;
+    transition:.3s;
+}
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 30px rgba(77,166,255,.45);
+}
+.card p{font-size:14px;color:#ccc}
+.card span{
+    display:block;
+    margin:16px 0;
+    color:#4da6ff;
+    font-weight:bold;
+}
+.card a{
+    display:inline-block;
+    margin-top:10px;
+    padding:10px 22px;
+    background:#25D366;
+    color:#fff;
+    border-radius:20px;
+    text-decoration:none;
+    font-size:13px;
+}
+
+/* INFO */
+#info{
+    background:linear-gradient(180deg,#0f1526,#0b0f1a);
+}
+.info-box{max-width:900px;margin:auto}
+.info-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:'Orbitron',sans-serif;
+    font-size:20px;
+    margin-bottom:18px;
+}
+.info-desc{color:#ccc;line-height:1.8;margin-bottom:40px}
+.info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+}
+
+/* KONTAK */
+.contact-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-top:10px;
+}
+.contact-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#cfd3da;
+    font-size:13px;
+}
+.contact-icon{
+    width:22px;
+    height:22px;
+    stroke:#cfd3da;
+    stroke-width:1.5;
+    fill:none;
+}
+
+/* FOOTER */
+footer{
+    background:#0f1526;
+    padding:22px;
+    text-align:center;
+    font-size:13px;
+    color:#aaa;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .info-grid{grid-template-columns:1fr}
+    .hero h1{font-size:32px}
+}
+/* CHECKOUT MODAL */
+.checkout-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4); /* lebih terang */
+  backdrop-filter:blur(5px); /* efek modern */
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.checkout-box{
+  width:420px;
+  max-height:90vh;
+  overflow-y:auto;
+  background:#0f172a;
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+
+.checkout-box h2{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.checkout-box input,
+.checkout-box select{
+  width:100%;
+  padding:12px;
+  margin-bottom:12px;
+  border-radius:10px;
+  border:none;
+  background:#1e293b;
+  color:white;
+}
+
+.checkout-box input:focus,
+.checkout-box select:focus{
+  outline:2px solid #2563eb;
+}
+
+.pay-btn{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(90deg,#2563eb,#1e3a8a);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  margin-bottom:8px;
+}
+
+.close-btn{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#334155;
+  color:white;
+  cursor:pointer;
+}
+
+.qr-box{
+  display:none;
+  text-align:center;
+  margin-bottom:20px;
+  padding:15px;
+  border-radius:15px;
+  background:#111c35;
+  border:1px solid rgba(77,166,255,.3);
+}
+
+.qr-box img{
+  width:170px;
+  margin:10px 0;
+  border-radius:12px;
+  box-shadow:0 0 20px rgba(77,166,255,.6);
+}
+
+.status-box{
+  margin-top:12px;
+  text-align:center;
+  font-weight:bold;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(.9)}
+  to{opacity:1;transform:scale(1)}
+}
+.status-processing{color:#facc15;}
+.status-waiting{color:#4da6ff;}
+.status-done{color:#22c55e;}
+</style>
+</head>
+
+<body>
+  
+<!-- CHECKOUT MODAL -->
+<div class="checkout-modal" id="checkoutModal">
+  <div class="checkout-box">
+
+    <h2>Checkout Pesanan</h2>
+
+    <!-- QR PALING ATAS -->
+    <div class="qr-box" id="qrBox">
+  <img id="dynamicQR" width="200">
+  <p>Scan QR untuk membayar</p>
+</div>
+
+    <input type="text" id="gameInput" placeholder="Game" readonly>
+    <input type="text" id="playerID" placeholder="Masukkan ID Game">
+    <input type="email" id="emailInput" placeholder="Masukkan Email/No WhatsApp">
+    
+<select id="nominalSelect">
+  <option value="">Pilih Nominal</option>
+  <option value="70 Diamond - 13.020">70 Diamond - 13.020</option>
+  <option value="140 Diamond - 26.040">140 Diamond - 26.040</option>
+  <option value="355 Diamond - 66.030">355 Diamond - 66.030</option>
+  <option value="720 Diamond - 133.920">720 Diamond - 133.920</option>
+  <option value="lainnya">💎 Lainnya (Tulis Sendiri)</option>
+</select>
+
+<input type="number" id="customNominal" 
+       placeholder="Masukkan jumlah diamond..." 
+       style="display:none;">
+
+<div id="autoPrice" 
+     style="display:none; margin-bottom:12px; font-weight:bold; color:#4da6ff;">
+</div>
+
+    <select id="paymentMethod">
+      <option value="">Pilih Metode Pembayaran</option>
+      <option value="qr">QR FyuChan</option>
+    </select>
+
+    <button class="pay-btn" id="payBtn">Checkout Sekarang</button>
+    <button class="close-btn" onclick="closeCheckout()">Tutup</button>
+
+    <div id="timer" style="text-align:center;margin-bottom:10px;color:#facc15;"></div>
+<div class="status-box" id="statusBox"></div>
+
+  </div>
+</div>
+
+<header>
+    <div class="logo">FYUCHAN<span>STORE</span></div>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <div class="menu" id="menu">
+        <a href="#home" onclick="toggleMenu()">Home</a>
+        <a href="#produk" onclick="toggleMenu()">Produk</a>
+        <a href="#info" onclick="toggleMenu()">Info</a>
+        <a href="#kontak" onclick="toggleMenu()">Kontak</a>
+    </div>
+</header>
+
+<section class="hero" id="home">
+    <h1>FYUCHAN STORE</h1>
+    <p>Penyedia layanan digital modern, stabil, dan terpercaya</p>
+
+    <div class="btn-group">
+        <button onclick="document.getElementById('produk').scrollIntoView({behavior:'smooth'})">
+            Lihat Produk
+        </button>
+    </div>
+</section>
+<section id="produk">
+    <h2>Produk Unggulan</h2>
+    <div class="produk-grid">
+
+        <div class="card">
+            <h3>SKIN MINECRAFT STOK</h3>
+            <p>Skin Minecraft Stok Adalah Skin Siap Pakai</p>
+            <span>Rp 5.000 - 25.000</span>
+            <a class="wa" href="https://wa.me/6287768385540" target="_blank">Order via WhatsApp</a>
+        </div>
+
+        <div class="card">
+            <h3>SKIN MINERCRAFT CUSTOM</h3>
+            <p>Skin Minecraft Custom Dibuat Sesuai Keinginan Anda.</p>
+            <span>Rp 5.000 - 15.000</span>
+            <a class="wa" href="https://wa.me/6287768385540" target="_blank">Order via WhatsApp</a>
+        </div>
+
+        <div class="card">
+            <h3>SKIN MINERCRAFT REMAKE</h3>
+            <p>Skin Minecraft Remake Adalah Membuat Skin Lama Menjadi Bagus.</p>
+            <span>Rp 5.000 - 15.000</span>
+            <a class="wa" href="https://wa.me/6287768385540" target="_blank">Order via WhatsApp</a>
+        </div>
+        
+        <!-- TEXT TOP UP GAME -->
+        <h2 style="grid-column:1/-1; margin-top:40px;">
+            Top Up Game
+        </h2>
+<div class="card">
+    <h3>TOP UP FREE FIRE</h3>
+    <p>Diamond Free Fire Proses Cepat & Aman</p>
+    
+    <div style="text-align:left; margin-top:15px; font-size:14px; color:#ccc;">
+        <div>💎 5 Diamond - Rp 930</div>
+        <div>💎 70 Diamond - Rp 13.020</div>
+        <div>💎 140 Diamond - Rp 26.040</div>
+        <div>💎 355 Diamond - Rp 66.030</div>
+        <div>💎 720 Diamond - Rp 133.920</div>
+    <p>Masih Banyak Lagi</p>
+    </div>
+
+    <a class="wa" href="#" onclick="openCheckout('FREE FIRE')">Beli Sekarang</a>
+</div>
+
+<div class="card">
+    <h3>TOP UP MOBILE LEGENDS</h3>
+    <p>Diamond MLBB Proses Cepat & Aman</p>
+    
+    <div style="text-align:left; margin-top:15px; font-size:14px; color:#ccc;">
+        <div>💎 10 Diamond - Rp 3.400</div>
+        <div>💎 85 Diamond - Rp 28.900</div>
+        <div>💎 170 Diamond - Rp 57.800</div>
+        <div>💎 257 Diamond - Rp 87.380</div>
+        <div>💎 522 Diamond - Rp 177.480</div>
+    <p>Masih Banyak Lagi</p>
+    </div>
+
+    <a class="wa" href="#" onclick="openCheckout('MOBILE LEGENDS')">Beli Sekarang</a>
+</div>
+
+
+    </div>
+</section>
+
+
+<section id="info">
+    <div class="info-box">
+        <div class="info-title">⚡ FYUCHAN STORE</div>
+        <p class="info-desc">FYUCHAN STORE menyediakan layanan Skin Minecraft dan Top Up Game dengan proses cepat, aman, dan terpercaya untuk mendukung pengalaman bermain Anda lebih maksimal.
+        </p>
+
+        <div class="info-grid">
+            <div>
+                <h3>Layanan</h3>
+                <ul>
+                    <li>Skin Minecraft</li>
+                    <li>Top Up Game</li>
+                </ul>
+            </div>
+
+            <div id="kontak">
+                <h3>Kontak</h3>
+                <div class="contact-list">
+                    <div class="contact-row">
+                        <svg class="contact-icon" viewBox="0 0 24 24">
+                            <path d="M3 7l9 6 9-6"/>
+                            <rect x="3" y="5" width="18" height="14" rx="2"/>
+                        </svg>
+                        <span>fyuchanstore.id@gmail.com</span>
+                    </div>
+
+                    <div class="contact-row">
+                        <svg class="contact-icon" viewBox="0 0 24 24">
+                            <path d="M12 21s7-6.5 7-11a7 7 0 0 0-14 0c0 4.5 7 11 7 11z"/>
+                            <circle cx="12" cy="10" r="2.5"/>
+                        </svg>
+                        <span>Indonesia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    © 2025 FYUCHAN STORE • All Rights Reserved
+</footer>
+<script>
+
+// ==========================
+// KONFIG TELEGRAM
+// ==========================
+const BOT_TOKEN = "8219047733:AAEZTyZx5-xIw-ruc0dfRUIJqGliNDui4JE";
+const CHAT_ID = "8367322295";
+
+// ==========================
+// OPEN & CLOSE CHECKOUT
+// ==========================
+function openCheckout(game){
+
+  clearInterval(timerInterval);
+
+  document.getElementById("checkoutModal").style.display="flex";
+  document.getElementById("gameInput").value=game;
+  document.getElementById("statusBox").innerText="";
+  document.getElementById("qrBox").style.display="none";
+
+  const nominalSelect = document.getElementById("nominalSelect");
+
+  // Reset dulu
+  nominalSelect.innerHTML = '<option value="">Pilih Nominal</option>';
+
+  // ======================
+  // FREE FIRE
+  // ======================
+  if(game === "FREE FIRE"){
+
+    let ffList = [
+      {diamond:5, price:930},
+      {diamond:70, price:13020},
+      {diamond:140, price:26040},
+      {diamond:355, price:66030},
+      {diamond:720, price:133920}
+    ];
+
+    ffList.forEach(item=>{
+      let option = document.createElement("option");
+      option.value = item.diamond + " Diamond - Rp " + item.price;
+      option.textContent = item.diamond + " Diamond - Rp " + item.price.toLocaleString("id-ID");
+      nominalSelect.appendChild(option);
+    });
+
+  }
+
+  // ======================
+  // MOBILE LEGENDS
+  // ======================
+  if(game === "MOBILE LEGENDS"){
+
+    let mlList = [
+      {diamond:10, price:3400},
+      {diamond:85, price:28900},
+      {diamond:170, price:57800},
+      {diamond:257, price:87380},
+      {diamond:522, price:177480}
+    ];
+
+    mlList.forEach(item=>{
+      let option = document.createElement("option");
+      option.value = item.diamond + " Diamond - Rp " + item.price;
+      option.textContent = item.diamond + " Diamond - Rp " + item.price.toLocaleString("id-ID");
+      nominalSelect.appendChild(option);
+    });
+
+  }
+
+  // Tambah opsi lainnya
+  let otherOption = document.createElement("option");
+  otherOption.value = "lainnya";
+  otherOption.textContent = "💎 Lainnya (Tulis Sendiri)";
+  nominalSelect.appendChild(otherOption);
+
+  startTimer();
+}
+
+function closeCheckout(){
+  document.getElementById("checkoutModal").style.display="none";
+  clearInterval(timerInterval);
+}
+
+// ==========================
+// ELEMENT
+// ==========================
+const paymentMethod=document.getElementById("paymentMethod");
+const qrBox=document.getElementById("qrBox");
+const payBtn=document.getElementById("payBtn");
+const statusBox=document.getElementById("statusBox");
+const timerDisplay=document.getElementById("timer");
+const nominalSelect = document.getElementById("nominalSelect");
+const customNominal = document.getElementById("customNominal");
+
+const autoPrice = document.getElementById("autoPrice");
+
+// 🔥 HARGA BARU
+function getPricePerDiamond(game){
+
+  if(game === "FREE FIRE"){
+    return 186; // FF
+  }
+
+  if(game === "MOBILE LEGENDS"){
+    return 340; // MLBB
+  }
+
+  return 0;
+
+}
+
+customNominal.addEventListener("input", function(){
+
+  const game = document.getElementById("gameInput").value;
+  const pricePerDiamond = getPricePerDiamond(game);
+
+  let diamond = parseInt(this.value);
+
+  if(diamond > 0){
+
+    let total = diamond * pricePerDiamond;
+
+    autoPrice.style.display = "block";
+    autoPrice.style.color = "#4da6ff";
+    autoPrice.innerText = 
+      "Total yang harus dibayar: Rp " + 
+      total.toLocaleString("id-ID");
+
+  }else{
+    autoPrice.style.display = "none";
+  }
+
+});
+
+nominalSelect.addEventListener("change", function(){
+  if(this.value === "lainnya"){
+    customNominal.style.display = "block";
+  } else {
+    customNominal.style.display = "none";
+    customNominal.value = "";
+  }
+});
+
+// ==========================
+// QR OTOMATIS MUNCUL
+// ==========================
+paymentMethod.addEventListener("change",function(){
+  if(this.value==="qr"){
+    qrBox.style.display="block";
+    qrBox.scrollIntoView({behavior:"smooth"});
+  }else{
+    qrBox.style.display="none";
+  }
+});
+
+// ==========================
+// CHECKOUT PROCESS
+// ==========================
+let isProcessing = false;
+
+payBtn.addEventListener("click",function(){
+
+  if(isProcessing) return; // ⛔ cegah spam klik
+
+  const game=document.getElementById("gameInput").value;
+  const playerID=document.getElementById("playerID").value;
+  const email=document.getElementById("emailInput").value;
+  let nominal = nominalSelect.value;
+
+if(nominal === "lainnya"){
+
+  const game = document.getElementById("gameInput").value;
+  const pricePerDiamond = getPricePerDiamond(game);
+
+  let diamond = parseInt(customNominal.value);
+
+  let total = diamond * pricePerDiamond;
+
+  nominal = diamond + 
+            " Diamond - Rp " + 
+            total.toLocaleString("id-ID");
+}
+  const method=paymentMethod.value;
+
+if(!playerID || !email || !method || 
+   (nominalSelect.value !== "lainnya" && !nominalSelect.value) ||
+   (nominalSelect.value === "lainnya" && !customNominal.value)){
+    alert("Lengkapi semua data!");
+    return;
+  }
+
+  // =============================
+  // LOCK BUTTON (ANTI SPAM)
+  // =============================
+  isProcessing = true;
+  payBtn.disabled = true;
+  payBtn.innerText = "Memproses...";
+  payBtn.style.opacity = "0.7";
+  payBtn.style.cursor = "not-allowed";
+
+  // =============================
+  // STATUS TAMPILAN
+  // =============================
+  statusBox.innerText="⏳ Mohon bersabar, pesanan anda sedang diproses...";
+  statusBox.style.color="#facc15";
+  // ambil total angka
+let amount;
+
+if(nominalSelect.value === "lainnya"){
+  const pricePerDiamond = getPricePerDiamond(game);
+  let diamond = parseInt(customNominal.value);
+  amount = diamond * pricePerDiamond;
+}else{
+  amount = parseInt(nominal.replace(/[^0-9]/g,""));
+}
+
+// kirim ke backend
+fetch("/.netlify/functions/create-payment", {
+  method: "POST",
+  body: JSON.stringify({
+    amount: "10000"
+  })
+})
+.then(res => res.json())
+.then(data => {
+
+  if(data.qr_url){
+
+    // 🔥 INI BAGIAN YANG KAMU TANYA
+    document.getElementById("dynamicQR").src = data.qr_url;
+
+    qrBox.style.display = "block";
+
+    statusBox.innerText="⌛ Menunggu Pembayaran...";
+    statusBox.style.color="#3b82f6";
+
+  }else{
+    alert("Gagal membuat pembayaran");
+  }
+
+})
+.catch(err=>{
+  alert("Server error");
+});
+
+});
+
+// ==========================
+// KIRIM TELEGRAM
+// ==========================
+function kirimTelegram(game,id,email,nominal,method){
+
+let message =
+`🔥 ORDER BARU FYUCHAN STORE 🔥
+
+🎮 Game: ${game}
+🆔 ID: ${id}
+📧 Email/No WhatsApp: ${email}
+💎 Nominal: ${nominal}
+💳 Metode: ${method}
+
+Status: DONE ✅`;
+
+fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
+  method:"POST",
+  headers:{"Content-Type":"application/json"},
+  body:JSON.stringify({
+    chat_id:CHAT_ID,
+    text:message
+  })
+})
+.then(res=>res.json())
+.then(data=>{
+  console.log("Berhasil kirim ke Telegram",data);
+})
+.catch(err=>{
+  console.log("Gagal kirim:",err);
+});
+
+}
+
+// ==========================
+// TIMER 5 MENIT
+// ==========================
+let timerInterval;
+function startTimer(){
+  let time=300;
+  timerInterval=setInterval(()=>{
+    let minutes=Math.floor(time/60);
+    let seconds=time%60;
+    timerDisplay.innerText="Selesaikan pembayaran dalam "+minutes+":"+(seconds<10?"0":"")+seconds;
+    time--;
+    if(time<0){
+      clearInterval(timerInterval);
+      timerDisplay.innerText="Waktu habis!";
+    }
+  },1000);
+}
+// ==========================
+// ZOOM QR AMAN (FINAL)
+// ==========================
+document.addEventListener("DOMContentLoaded", function(){
+
+  const qrImage = document.querySelector("#qrBox img");
+  const zoomQR = document.getElementById("zoomQR");
+  const zoomQRImage = document.getElementById("zoomQRImage");
+
+  if(qrImage && zoomQR && zoomQRImage){
+
+    qrImage.addEventListener("click", function(){
+      zoomQRImage.src = this.src;
+      zoomQR.style.display = "flex";
+    });
+
+    zoomQR.addEventListener("click", function(){
+      zoomQR.style.display = "none";
+    });
+
+  }
+
+});
+
+</script>
+
+<!-- ZOOM QR -->
+<div id="zoomQR" style="
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.8);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:2000;
+">
+  <img id="zoomQRImage" style="
+  width:350px;
+  max-width:90%;
+  border-radius:15px;
+  box-shadow:0 0 30px rgba(77,166,255,.8);
+  ">
+</div>
+
+</body>
+</html>
